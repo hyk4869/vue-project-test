@@ -1,14 +1,8 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
+import HeaderViewVue from './views/HeaderView.vue';
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-      </nav>
-    </div>
-  </header>
-  <RouterView />
+  <header><HeaderViewVue /></header>
+  <main><RouterView /></main>
 </template>
