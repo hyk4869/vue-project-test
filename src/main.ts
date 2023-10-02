@@ -10,7 +10,7 @@ import '@mdi/font/css/materialdesignicons.css';
 import { Quasar } from 'quasar';
 import quasarLang from 'quasar/lang/ja';
 import '@quasar/extras/material-icons/material-icons.css';
-// import 'quasar/src/css/index.sass';
+import 'quasar/src/css/index.sass';
 
 const vuetify = createVuetify();
 

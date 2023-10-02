@@ -1,9 +1,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-
+import { QBtn } from 'quasar';
 export default defineComponent({
   setup() {},
-  components: {},
+  components: { QBtn },
 });
 </script>
-<template>quasar <br />bbbbbbbbb</template>
+<template>
+  <q-btn color="primary" text-color="black" label="Standard" />
+  <br />
+  quasar <br />bbbbbbbbb
+</template>
