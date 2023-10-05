@@ -25,7 +25,7 @@ export default defineComponent({
       { name: 'Home', route: '/' },
       { name: 'About', route: '/about' },
       { name: 'Quasar', route: '/quasar' },
-      // { name: 'Others', route: '/others' },
+      { name: 'Others', route: '/others' },
     ];
     return {
       isShowMenu,
@@ -56,7 +56,6 @@ export default defineComponent({
     <v-navigation-drawer app clipped v-model="isShowMenu">
       <v-container>
         <v-list-item v-for="nav_list in nav_lists" :key="nav_list.name">
-          <!-- <v-list-item-title class="title grey--text text--darken-2"> {{ nav_list.name }} </v-list-item-title> -->
           <RouterLink :to="nav_list.route">
             <v-list-item-title class="title grey--text text--darken-2">{{ nav_list.name }}</v-list-item-title>
           </RouterLink>

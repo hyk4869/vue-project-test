@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../components/Home.vue';
 import About from '../components/About.vue';
 import Quasar from '../components/Quasar.vue';
+import Others from '../components/Others.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +21,11 @@ const router = createRouter({
       path: '/quasar',
       name: 'quasar',
       component: Quasar,
+    },
+    {
+      path: '/others',
+      name: 'others',
+      component: Others,
     },
   ],
 });
