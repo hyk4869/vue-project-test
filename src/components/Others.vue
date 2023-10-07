@@ -14,6 +14,18 @@ watch(openDialog, () => console.log(openDialog.value));
 </script>
 
 <template>
-  <q-btn color="primary" label="Dialog Button" @click="isOpen"></q-btn>
+  <div class="centered-container">
+    <q-btn color="primary" label="Dialog Button" @click="isOpen" class="dialogBtn"></q-btn>
+  </div>
   <DialogView :openDialog="openDialog" @update:openDialog="isOpen" />
 </template>
+
+<style scoped>
+.centered-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+</style>

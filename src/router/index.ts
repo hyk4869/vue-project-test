@@ -3,6 +3,8 @@ import Home from '../components/Home.vue';
 import About from '../components/About.vue';
 import Quasar from '../components/Quasar.vue';
 import Others from '../components/Others.vue';
+import ParentComponent from '@/components/ParentComponent.vue';
+import ChildrenComponent from '@/components/ChildrenComponent.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +28,16 @@ const router = createRouter({
       path: '/others',
       name: 'others',
       component: Others,
+    },
+    {
+      path: '/parant',
+      name: 'parant',
+      component: ParentComponent,
+    },
+    {
+      path: '/children',
+      name: 'children',
+      component: ChildrenComponent,
     },
   ],
 });

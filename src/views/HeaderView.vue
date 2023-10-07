@@ -13,7 +13,7 @@ import {
   VListItem,
   VListItemTitle,
 } from 'vuetify/components';
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterLink } from 'vue-router';
 
 export default defineComponent({
   setup() {
@@ -21,16 +21,22 @@ export default defineComponent({
     const isShow = () => {
       isShowMenu.value = !isShowMenu.value;
     };
+    const closeDrawerOnClickOutside = () => {
+      isShowMenu.value = false;
+    };
     const nav_lists = [
       { name: 'Home', route: '/' },
       { name: 'About', route: '/about' },
       { name: 'Quasar', route: '/quasar' },
       { name: 'Others', route: '/others' },
+      { name: 'Parant', route: '/parant' },
+      { name: 'Children', route: '/children' },
     ];
     return {
       isShowMenu,
       isShow,
       nav_lists,
+      closeDrawerOnClickOutside,
     };
   },
   components: {
@@ -46,14 +52,13 @@ export default defineComponent({
     VListItem,
     VListItemTitle,
     RouterLink,
-    RouterView,
   },
 });
 </script>
 
 <template>
   <v-app :class="{ 'menu-open': isShowMenu }" class="headerMain">
-    <v-navigation-drawer app clipped v-model="isShowMenu">
+    <v-navigation-drawer app clipped v-model="isShowMenu" @click="closeDrawerOnClickOutside">
       <v-container>
         <v-list-item v-for="nav_list in nav_lists" :key="nav_list.name">
           <RouterLink :to="nav_list.route">

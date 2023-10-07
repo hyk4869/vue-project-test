@@ -11,6 +11,8 @@ import { Quasar } from 'quasar';
 import quasarLang from 'quasar/lang/ja';
 import '@quasar/extras/material-icons/material-icons.css';
 import 'quasar/src/css/index.sass';
+//
+import { createPinia } from 'pinia';
 
 const vuetify = createVuetify();
 
@@ -18,4 +20,5 @@ const app = createApp(App);
 app.use(router);
 app.use(vuetify);
 app.mount('#app');
+app.use(createPinia());
 app.use(Quasar, { plugins: {}, lang: quasarLang });
