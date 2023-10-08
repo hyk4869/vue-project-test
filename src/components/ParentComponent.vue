@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, type Ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { useStoreCounter } from '../stores/test_store';
 import { QBtn, QInput, QList, QItem } from 'quasar';
 import { useStoreTodoList } from '@/stores/todolist_store';
@@ -11,7 +11,7 @@ type todoListType = {
   inputValue: string | null;
 };
 const todoList = reactive<Array<todoListType>>([]);
-const newTaskInput: Ref<string> = ref('');
+const newTaskInput = ref<string>('');
 
 const addTodo = () => {
   if (newTaskInput.value !== '') {

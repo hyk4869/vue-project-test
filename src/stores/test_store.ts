@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, reactive, ref, type Ref } from 'vue';
+import { computed, ref } from 'vue';
 
 // export const useStoreCounter = defineStore('counter', {
 //   state: () => ({

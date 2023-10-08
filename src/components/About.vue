@@ -1,9 +1,6 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  setup() {},
-  components: {},
-});
+<script setup lang="ts">
+import CalendarHeader from '@/components/calendar/CalendarHeader.vue';
 </script>
-<template>about <br />aaaa</template>
+<template>
+  <CalendarHeader />
+</template>
