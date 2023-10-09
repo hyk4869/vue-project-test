@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { QDialog, QCard, QCardSection } from 'quasar';
-import { ref, type PropType } from 'vue';
-import { useDisplayTime, useShowEvent } from './calendar_stores/stores';
+import { ref } from 'vue';
+import { useDisplayTime, useShowEvent } from '../calendar_stores/stores';
 import ja from 'dayjs/locale/ja';
 
 const isShow = useShowEvent();

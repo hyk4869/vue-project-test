@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useDisplayMonth } from './calendar_stores/stores';
+import { useDisplayMonth } from '../calendar_stores/stores';
 
 const presentTime = useDisplayMonth();
 </script>

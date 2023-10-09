@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue';
-import { useShowEvent } from './calendar_stores/stores';
-import CaledarDialog from './CalendarDialog.vue';
+import { useShowEvent } from '../calendar_stores/stores';
+import CaledarDialog from '../dialog/CalendarDialog.vue';
 
 const isShow = useShowEvent();
 // watch(isShow, () => console.log(isShow.isShowEvent));

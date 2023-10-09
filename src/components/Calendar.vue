@@ -1,8 +1,17 @@
 <script setup lang="ts">
-import CalendarHeader from '@/components/calendar/CalendarHeader.vue';
-import EventButton from './calendar/EventButton.vue';
+import CalendarHeader from '@/components/calendar/header/CalendarHeader.vue';
+import EventButton from './calendar/sidebar/EventButton.vue';
 </script>
 <template>
   <CalendarHeader />
-  <EventButton />
+  <div class="sideBar">
+    <EventButton />
+  </div>
 </template>
+
+<style scoped>
+.sideBar {
+  display: flex;
+  flex-direction: column;
+}
+</style>
