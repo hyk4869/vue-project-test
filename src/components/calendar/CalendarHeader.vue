@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useStoreCalendar } from './calendar_stores/stores';
+import { useDisplayMonth } from './calendar_stores/stores';
 
-const presentTime = useStoreCalendar();
+const presentTime = useDisplayMonth();
 </script>
 
 <template>

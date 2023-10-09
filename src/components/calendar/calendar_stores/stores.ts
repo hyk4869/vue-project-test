@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
 import dayjs from 'dayjs';
-import { ref, type Ref } from 'vue';
+import { reactive, ref, type Ref } from 'vue';
+import { v4 as uuidv4 } from 'uuid';
 
-export const useStoreCalendar = defineStore('caledar', () => {
+export const useDisplayMonth = defineStore('caledar', () => {
   const monthIndex: Ref<number> = ref(dayjs().month() + 1);
   const yearIndex: Ref<number> = ref(dayjs().year());
 
@@ -28,4 +29,27 @@ export const useStoreCalendar = defineStore('caledar', () => {
   };
 
   return { yearIndex, monthIndex, pastMonth, nextMonth, presentMonth };
+});
+
+export const useDisplayTime = defineStore('time', () => {
+  const time = ref(dayjs());
+  return { time };
+});
+
+export const useShowEvent = defineStore('showevent', () => {
+  type contentArray = {
+    title: string;
+    explanation: string;
+    id: string;
+    contentLength: number;
+  };
+
+  const isShowEvent = ref<boolean>(false);
+  const contentArray = reactive<Array<contentArray>>([]);
+
+  const showDialog = () => {
+    isShowEvent.value = !isShowEvent.value;
+  };
+
+  return { isShowEvent, showDialog, contentArray };
 });

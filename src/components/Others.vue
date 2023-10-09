@@ -10,7 +10,7 @@ const isOpen = () => {
   openDialog.value = !openDialog.value;
 };
 
-watch(openDialog, () => console.log(openDialog.value));
+// watch(openDialog, () => console.log(openDialog.value));
 </script>
 
 <template>
