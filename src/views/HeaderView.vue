@@ -26,7 +26,7 @@ export default defineComponent({
     };
     const nav_lists = [
       { name: 'Home', route: '/' },
-      { name: 'Calendar', route: '/about' },
+      { name: 'Calendar', route: '/calendar' },
       { name: 'Quasar', route: '/quasar' },
       { name: 'Others', route: '/others' },
       { name: 'Parant', route: '/parant' },

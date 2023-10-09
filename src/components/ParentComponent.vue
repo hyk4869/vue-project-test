@@ -29,54 +29,75 @@ const useStoreTodo = useStoreTodoList();
 
 <template>
   <div>
-    <h3>Pinia入門</h3>
-    <p>Count:{{ counter.count }}</p>
-    <p>DoubleCount:{{ counter.doubleCount }}</p>
+    <div style="display: flex; flex-direction: column; position: relative; left: 11rem">
+      <h3>Pinia入門</h3>
+      <p>Count:{{ counter.count }}</p>
+      <p>DoubleCount:{{ counter.doubleCount }}</p>
 
-    <div>
-      <q-btn @click="counter.increment" color="blue">Up</q-btn>
-      <q-btn @click="counter.decrement" color="blue" style="margin-left: 2rem">Down</q-btn>
+      <div>
+        <q-btn @click="counter.increment" color="blue">Up</q-btn>
+        <q-btn @click="counter.decrement" color="blue" style="margin-left: 2rem">Down</q-btn>
+      </div>
     </div>
 
-    <br />
-    <br />
-    <h3>通常のTodoList</h3>
-    <div class="todoInput">
-      <q-input v-model="newTaskInput" @keyup.enter="addTodo" placeholder="Add a new task" class="inputValue"></q-input>
-      <q-btn @click="addTodo" color="blue" class="addBtn">Add Task</q-btn>
-    </div>
-    <q-list>
-      <q-item v-for="task in todoList" :key="task.id">
-        {{ task.inputValue }}
-      </q-item>
-    </q-list>
+    <div class="todoListStyle">
+      <div class="todoInput">
+        <h3>通常のTodoList</h3>
+        <div class="inputAndBtn">
+          <q-input
+            v-model="newTaskInput"
+            @keyup.enter="addTodo"
+            placeholder="Add a new task"
+            class="inputValue"
+          ></q-input>
+          <q-btn @click="addTodo" color="blue" class="addBtn">Add Task</q-btn>
+        </div>
+        <q-list>
+          <q-item v-for="task in todoList" :key="task.id">
+            {{ task.inputValue }}
+          </q-item>
+        </q-list>
+      </div>
 
-    <br />
-    <br />
-    <h3>Piniaを使ったTodoList</h3>
-    <div class="todoInput">
-      <q-input
-        v-model="useStoreTodo.newTaskInput2"
-        @keyup.enter="useStoreTodo.addTodo2"
-        placeholder="Add a new task"
-        class="inputValue"
-      ></q-input>
-      <q-btn @click="useStoreTodo.addTodo2" color="blue" class="addBtn">Add Task</q-btn>
+      <div class="todoInput">
+        <h3>Piniaを使ったTodoList</h3>
+        <div class="inputAndBtn">
+          <q-input
+            v-model="useStoreTodo.newTaskInput2"
+            @keyup.enter="useStoreTodo.addTodo2"
+            placeholder="Add a new task"
+            class="inputValue"
+          ></q-input>
+          <q-btn @click="useStoreTodo.addTodo2" color="blue" class="addBtn">Add Task</q-btn>
+        </div>
+        <q-list>
+          <q-item v-for="task in useStoreTodo.todoList2" :key="task.id">
+            {{ task.inputValue }}
+          </q-item>
+        </q-list>
+      </div>
     </div>
-    <q-list>
-      <q-item v-for="task in useStoreTodo.todoList2" :key="task.id">
-        {{ task.inputValue }}
-      </q-item>
-    </q-list>
   </div>
 </template>
 
 <style scoped>
-.todoInput {
+.todoListStyle {
   display: flex;
   flex-direction: row;
+}
+.inputAndBtn {
+  display: flex;
+  flex-direction: row;
+}
+.todoInput {
+  display: flex;
+  flex-direction: column;
   max-height: 1rem;
   margin-bottom: 5rem;
+  position: relative;
+  left: 1rem;
+  top: 3rem;
+  padding-left: 10rem;
 }
 .inputValue {
   width: 15rem;
@@ -85,5 +106,7 @@ const useStoreTodo = useStoreTodoList();
   position: relative;
   top: 1rem;
   left: 1rem;
+  width: 9rem;
+  height: 2rem;
 }
 </style>

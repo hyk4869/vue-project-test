@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../components/Home.vue';
-import About from '../components/About.vue';
+import Calendar from '../components/Calendar.vue';
 import Quasar from '../components/Quasar.vue';
 import Others from '../components/Others.vue';
 import ParentComponent from '@/components/ParentComponent.vue';
@@ -15,9 +15,9 @@ const router = createRouter({
       component: Home,
     },
     {
-      path: '/about',
-      name: 'about',
-      component: About,
+      path: '/calendar',
+      name: 'calendar',
+      component: Calendar,
     },
     {
       path: '/quasar',
