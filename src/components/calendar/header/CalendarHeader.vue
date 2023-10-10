@@ -23,7 +23,7 @@ const presentTime = useDisplayMonth();
 .header {
   padding: 0;
   margin: 0;
-  width: 100vw;
+  width: 100%;
 }
 h1 {
   font-size: 1.5rem;

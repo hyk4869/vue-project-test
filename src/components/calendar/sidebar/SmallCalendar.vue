@@ -96,9 +96,9 @@ const nowDay = (day: dayjs.Dayjs) => {
   align-items: center;
 }
 h3 {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   display: flex;
-  padding: 0 1rem;
+  padding: 0 0.7rem;
 }
 .left {
   font-size: 1.4rem;
@@ -124,15 +124,17 @@ h3 {
   grid-template-columns: repeat(7, minmax(0, 1fr));
   grid-template-rows: repeat(6, minmax(0, 1fr));
   height: 15rem;
-  width: 15rem;
+  width: 13.2rem;
 }
 .divDayOfWeek {
   display: flex;
   flex-direction: row;
+  padding: 0.5rem;
 }
 
 .dayOfWeek {
-  padding-left: 1rem;
+  padding-left: 0.5rem;
+  font-size: 0.7rem;
 }
 
 .grid-container {
@@ -158,12 +160,12 @@ h3 {
   right: 0.6rem;
 }
 .day {
-  padding: 0.6rem;
+  padding: 0.5rem;
   user-select: none;
   cursor: pointer;
 }
 .spanDay {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   padding-left: 0.1rem;
 }
 </style>
