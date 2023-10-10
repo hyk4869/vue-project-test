@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { ArrayDay } from '../common_content/ArrayDay';
 import dayjs from 'dayjs';
 
@@ -10,24 +10,20 @@ const monthIndex = ref<number>(dayjs().month() + 1);
 watch([monthIndex], () => {
   currentMonth.value = ArrayDay(yearIndex.value, monthIndex.value);
 });
+
+onMounted(() => {
+  console.log(currentMonth.value);
+});
 </script>
 
 <template>
-  <div class="borderContent">
-    <div class="MainCalendar">
-      <div v-for="(value, idx) in currentMonth[0]" :key="idx" class="divDayOfWeek">
-        <span class="dayOfWeek">
-          {{ value.format('dd').charAt(0) }}
-        </span>
-      </div>
-      <div class="grid-container">
-        <div v-for="(value, idx) in currentMonth" :key="idx" class="grid-row">
-          <div v-for="(day, index) in value" :key="index" class="grid-item">
-            <button class="day">
-              <span class="spanDay">
-                {{ day.format('D') }}
-              </span>
-            </button>
+  <div class="calendar-container">
+    <div class="calendar">
+      <div v-for="(value, idx) in currentMonth" :key="idx" class="week">
+        <div v-for="(data, index) in value" :key="index" class="inner-day">
+          <div class="day-wrapper">
+            <p v-if="idx === 0" class="day-name">{{ data.format('dd') }}</p>
+            <p class="day-full">{{ data.format('DD') }}</p>
           </div>
         </div>
       </div>
@@ -36,38 +32,18 @@ watch([monthIndex], () => {
 </template>
 
 <style scoped>
-.borderContent {
-  display: flex;
-  flex-direction: row;
-  justify-items: center;
-  align-items: center;
+.calendar-container {
 }
-.MainCalendar {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  grid-template-rows: repeat(5, minmax(0, 1fr));
+.calendar {
 }
-.divDayOfWeek {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1.5px solid #ccc;
-  height: 1.5rem;
+.week {
 }
-.dayOfWeek {
-  width: 11vw;
-  text-align: center;
+.inner-day {
 }
-.grid-container {
-  position: relative;
-  display: grid;
+.day-wrapper {
 }
-
-.grid-row {
-  display: flex;
-  flex-direction: row;
+.day-name {
 }
-.grid-row > * {
-  flex: 1;
+.day-full {
 }
 </style>
