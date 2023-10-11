@@ -33,10 +33,13 @@ watch([monthIndex], () => {
 
 <style scoped>
 .calendar-container {
+  /**臨時で設定。もっといいのあればそっちを設定 */
+  height: 85vh;
 }
 .calendar {
   display: grid;
   grid-template-rows: repeat(5, minmax(0, 1fr));
+  height: 100%;
 }
 .day-grid {
   display: grid;
@@ -46,12 +49,15 @@ watch([monthIndex], () => {
   flex: 1;
   display: flex;
   justify-content: center;
+  border: 1px solid rgb(222, 222, 222);
 }
 .day-wrapper {
 }
 .day-name {
+  margin-bottom: 2px;
 }
 .day-full {
+  margin: 5px 0 2px 0;
 }
 .eventBox {
 }

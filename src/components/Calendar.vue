@@ -24,12 +24,10 @@ import MainCalendar from './calendar/mainCalendar/MainCalendar.vue';
 }
 .sideBar {
   display: flex;
-  flex-direction: row;
   align-items: center;
 }
 .mainCalendar {
   position: relative;
-  width: 100%;
   flex: 1;
 }
 </style>
