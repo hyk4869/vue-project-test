@@ -21,7 +21,6 @@ import MainCalendar from './calendar/mainCalendar/MainCalendar.vue';
 .content {
   display: flex;
   min-width: 255px;
-  height: 100vh;
 }
 .sideBar {
   display: flex;
@@ -30,7 +29,7 @@ import MainCalendar from './calendar/mainCalendar/MainCalendar.vue';
 }
 .mainCalendar {
   position: relative;
-  left: 2rem;
-  width: calc(100% - 2rem);
+  width: 100%;
+  flex: 1;
 }
 </style>

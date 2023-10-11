@@ -86,7 +86,7 @@ const nowDay = (day: dayjs.Dayjs) => {
   display: flex;
   flex-direction: column;
   position: relative;
-  left: 1rem;
+  left: 0.5rem;
   top: 6rem;
   min-width: fit-content;
 }
@@ -108,12 +108,12 @@ h3 {
 .right {
   font-size: 1.4rem;
   cursor: pointer;
-  left: 1rem;
+  left: 0.5rem;
   padding: 10px;
 }
 .todayBtn {
   background-color: rgb(255, 255, 195, 1);
-  width: 3rem;
+  width: 2.7rem;
   font-size: 0.5rem;
 }
 /** */
