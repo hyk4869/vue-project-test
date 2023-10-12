@@ -2,12 +2,37 @@
 import { ref } from 'vue';
 import { useDisplayTime, useShowEvent } from '../calendar_stores/stores';
 import ja from 'dayjs/locale/ja';
+import { v4 as uuidv4 } from 'uuid';
+import { watch } from 'vue';
 
 const isShow = useShowEvent();
 const showTime = useDisplayTime();
+const selectedDay = useDisplayTime();
 
 const editNewTask = ref<string>('');
 const editExplanation = ref<string>('');
+
+const addNewTask = () => {
+  if (editNewTask.value !== '') {
+    const Id = uuidv4();
+    isShow.contentArray.push({
+      title: editNewTask.value,
+      explanation: editExplanation.value,
+      id: Id,
+      contentLength: isShow.contentArray.length + 1,
+      day: selectedDay.time.format('YYYY-MM-DD'),
+    });
+    isShow.showDialog();
+    editNewTask.value = '';
+    editExplanation.value = '';
+  } else {
+    window.alert('タイトルは必須です');
+  }
+};
+
+watch(isShow.contentArray, () => {
+  console.log(isShow.contentArray);
+});
 </script>
 
 <template>
@@ -38,7 +63,7 @@ const editExplanation = ref<string>('');
         </q-card-actions>
 
         <q-card-actions class="dialogBtn1">
-          <q-btn label="保存" color="primary" @click="isShow.showDialog" class="dialogBtn" />
+          <q-btn label="保存" color="primary" @click="addNewTask" class="dialogBtn" />
         </q-card-actions>
       </div>
     </q-card>

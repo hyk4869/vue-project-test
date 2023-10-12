@@ -17,10 +17,10 @@ const isShow = useShowEvent();
 
 <style scoped>
 .btn {
-  position: absolute;
+  position: relative;
   cursor: pointer;
-  top: 9rem;
-  left: 1rem;
+  /* top: 9rem; */
+  /* left: 1rem; */
 }
 .createEvent {
   display: flex;

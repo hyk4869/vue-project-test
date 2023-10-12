@@ -86,9 +86,7 @@ const nowDay = (day: dayjs.Dayjs) => {
   display: flex;
   flex-direction: column;
   position: relative;
-  left: 0.5rem;
-  bottom: 5.5rem;
-  min-width: fit-content;
+  align-items: center;
 }
 .leftOrRight {
   display: flex;

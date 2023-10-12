@@ -1,18 +1,19 @@
 import { defineStore } from 'pinia';
 import dayjs from 'dayjs';
 import { reactive, ref, type Ref } from 'vue';
-import { v4 as uuidv4 } from 'uuid';
+
+export type contentArray = {
+  title: string;
+  explanation: string;
+  id: string;
+  contentLength: number;
+  day: string;
+};
 
 /**メイン処理　予定などを管理する */
 export const useShowEvent = defineStore('showevent', () => {
-  type contentArray = {
-    title: string;
-    explanation: string;
-    id: string;
-    contentLength: number;
-  };
-
   const isShowEvent = ref<boolean>(false);
+
   const contentArray = reactive<Array<contentArray>>([]);
 
   const showDialog = () => {
