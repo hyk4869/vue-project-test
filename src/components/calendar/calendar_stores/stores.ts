@@ -8,6 +8,7 @@ export type contentArray = {
   id: string;
   contentLength: number;
   day: string;
+  color: string;
 };
 
 /**メイン処理　予定などを管理する */
@@ -19,8 +20,8 @@ export const useShowEvent = defineStore('showevent', () => {
   const showDialog = () => {
     isShowEvent.value = !isShowEvent.value;
   };
-
-  return { isShowEvent, showDialog, contentArray };
+  const colorList: string[] = ['#BAF1F1', '#F1BAF1', '#BAF1D6', '#F1F1BA', '#BABAF1'];
+  return { isShowEvent, showDialog, contentArray, colorList };
 });
 
 /**カレンダーのヘッダー部分の処理 */

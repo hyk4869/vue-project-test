@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useDisplayTime, useShowEvent } from '../calendar_stores/stores';
 import ja from 'dayjs/locale/ja';
 import { v4 as uuidv4 } from 'uuid';
-import { watch } from 'vue';
 
 const isShow = useShowEvent();
 const showTime = useDisplayTime();
@@ -11,6 +10,11 @@ const selectedDay = useDisplayTime();
 
 const editNewTask = ref<string>('');
 const editExplanation = ref<string>('');
+const colorPick = ref<string>('');
+
+const setColor = (value: string) => {
+  colorPick.value = value;
+};
 
 const addNewTask = () => {
   if (editNewTask.value !== '') {
@@ -21,6 +25,7 @@ const addNewTask = () => {
       id: Id,
       contentLength: isShow.contentArray.length + 1,
       day: selectedDay.time.format('YYYY-MM-DD'),
+      color: colorPick.value,
     });
     isShow.showDialog();
     editNewTask.value = '';
@@ -58,6 +63,13 @@ watch(isShow.contentArray, () => {
           <q-input v-model="editExplanation" filled type="textarea" class="explanationArea" />
         </q-card-section>
 
+        <q-card-actions class="color">
+          <q-icon name="bookmark" class="bookmarkIcon" />
+          <div v-for="(value, idx) in isShow.colorList" class="colorMap">
+            <div :style="{ backgroundColor: value }" class="pickColor" @click="setColor(value)"></div>
+          </div>
+        </q-card-actions>
+
         <q-card-actions class="delete">
           <q-icon name="mdi-delete" class="deleteIcon" />
         </q-card-actions>
@@ -82,7 +94,7 @@ watch(isShow.contentArray, () => {
 }
 .card1 {
   width: 30rem;
-  min-height: 30rem;
+  min-height: 33rem;
   position: relative;
   background-color: rgb(237, 237, 237);
 }
@@ -121,6 +133,28 @@ watch(isShow.contentArray, () => {
 .explanationArea {
   min-width: 25rem;
   padding-left: 1rem;
+}
+.color {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.bookmarkIcon {
+  font-size: 2.3rem;
+  cursor: pointer;
+}
+.colorMap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.pickColor {
+  border-radius: 9999px;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  margin-left: 2rem;
 }
 .delete {
   position: absolute;

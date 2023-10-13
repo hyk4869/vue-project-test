@@ -9,8 +9,6 @@ const openDialog: Ref<boolean> = ref(false);
 const isOpen = () => {
   openDialog.value = !openDialog.value;
 };
-
-// watch(openDialog, () => console.log(openDialog.value));
 </script>
 
 <template>

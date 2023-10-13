@@ -8,7 +8,7 @@ const currentMonth = ref(ArrayDay());
 const yearIndex = ref<number>(dayjs().year());
 const monthIndex = ref<number>(dayjs().month() + 1);
 const isShow = useShowEvent();
-const dayBox = ref<contentArray[]>(isShow.contentArray);
+const dayBox = ref<contentArray[]>([]);
 
 watch([monthIndex], () => {
   currentMonth.value = ArrayDay(yearIndex.value, monthIndex.value);
@@ -24,20 +24,27 @@ const nowDay = (day: dayjs.Dayjs) => {
     return '';
   }
 };
+
+watch(isShow, () => {
+  const events = isShow.contentArray.filter(
+    (evt) => dayjs(evt.day).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')
+  );
+  dayBox.value = events;
+});
 </script>
 
 <template>
   <div class="calendar-container">
     <div class="calendar">
       <div v-for="(value, idx) in currentMonth" :key="idx" class="day-grid">
-        <div v-for="(data, index) in value" :key="index" class="inner-day">
+        <div v-for="(data, index) in value" :key="index" class="inner-day" @click="isShow.showDialog">
           <div class="day-wrapper">
             <p v-if="idx === 0" class="day-name">{{ data.format('dd') }}</p>
             <p class="day-full" :style="nowDay(data)">{{ data.format('DD') }}</p>
           </div>
           <div class="event">
             <div v-for="(box, number) in dayBox" :key="number" class="eventBox" @click="isShow.showDialog">
-              <div class="eventName">{{ box.title }}</div>
+              <div v-if="box.day === data.format('YYYY-MM-DD')" class="eventName">{{ box.title }}</div>
             </div>
           </div>
         </div>
@@ -49,7 +56,7 @@ const nowDay = (day: dayjs.Dayjs) => {
 <style scoped>
 .calendar-container {
   /**臨時で設定。もっといいのあればそっちを設定 */
-  height: 85vh;
+  height: 100vh;
 }
 .calendar {
   display: grid;
@@ -65,6 +72,7 @@ const nowDay = (day: dayjs.Dayjs) => {
   display: flex;
   flex-direction: column;
   border: 1px solid rgb(222, 222, 222);
+  cursor: pointer;
 }
 .day-wrapper {
   display: flex;
@@ -84,6 +92,7 @@ const nowDay = (day: dayjs.Dayjs) => {
   overflow-y: auto;
 }
 .eventBox {
+  cursor: pointer;
 }
 .eventName {
   padding: 0.25rem;
