@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { useDisplayTime, useShowEvent } from '../calendar_stores/stores';
+import { ref } from 'vue';
+import { useSelectTime, useShowEvent } from '../calendar_stores/stores';
 import ja from 'dayjs/locale/ja';
 import { v4 as uuidv4 } from 'uuid';
 
 const isShow = useShowEvent();
-const showTime = useDisplayTime();
-const selectedDay = useDisplayTime();
+const selectTime = useSelectTime();
 
 const editNewTask = ref<string>('');
 const editExplanation = ref<string>('');
@@ -24,7 +23,7 @@ const addNewTask = () => {
       explanation: editExplanation.value,
       id: Id,
       contentLength: isShow.contentArray.length + 1,
-      day: selectedDay.time.format('YYYY-MM-DD'),
+      day: selectTime.selectTime.format('YYYY-MM-DD'),
       color: colorPick.value,
     });
     isShow.showDialog();
@@ -35,9 +34,11 @@ const addNewTask = () => {
   }
 };
 
-watch(isShow.contentArray, () => {
-  console.log(isShow.contentArray);
-});
+// const isDuplicateId = isShow.contentArray.some((event) => event.id === Id);
+// if (isDuplicateId) {
+//   window.alert('IDが重複しています');
+//   return;
+// }
 </script>
 
 <template>
@@ -55,7 +56,7 @@ watch(isShow.contentArray, () => {
 
         <q-card-section class="timeSession">
           <q-icon name="mdi-clock-time-five-outline" class="time" />
-          <h5>{{ showTime.time.locale(ja).format('YYYY年 MM月 DD日 dddd') }}</h5>
+          <h5>{{ selectTime.selectTime.locale(ja).format('YYYY年 MM月 DD日 dddd') }}</h5>
         </q-card-section>
 
         <q-card-section class="explanationSession">
