@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { ArrayDay } from '../common_content/ArrayDay';
 import dayjs from 'dayjs';
-import { useShowEvent, type contentArray } from '../calendar_stores/stores';
+import { useShowEvent, type contentArray, useSelectTime } from '../calendar_stores/stores';
 
 const currentMonth = ref(ArrayDay());
 const yearIndex = ref<number>(dayjs().year());
 const monthIndex = ref<number>(dayjs().month() + 1);
 const isShow = useShowEvent();
 const dayBox = ref<contentArray[]>([]);
+const selectTime = useSelectTime();
 
 watch([monthIndex], () => {
   currentMonth.value = ArrayDay(yearIndex.value, monthIndex.value);
@@ -25,11 +26,16 @@ const nowDay = (day: dayjs.Dayjs) => {
   }
 };
 
-watch(isShow, () => {
+watch(isShow.contentArray, () => {
   const events = isShow.contentArray.filter(
-    (evt) => dayjs(evt.day).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')
+    (evt) => dayjs(evt.day).format('YYYY-MM-DD') === selectTime.selectTime.format('YYYY-MM-DD')
   );
-  dayBox.value = events;
+  /**dayBox.value から重複を排除した新しい配列を作成 */
+  const uniqueEvents = [...dayBox.value, ...events].filter(
+    (value, index, self) => self.findIndex((v) => v.id === value.id) === index
+  );
+
+  dayBox.value = uniqueEvents;
 });
 </script>
 
@@ -44,6 +50,7 @@ watch(isShow, () => {
           </div>
           <div class="event">
             <div v-for="(box, number) in dayBox" :key="number" class="eventBox" @click="isShow.showDialog">
+              <!-- <div v-if="box.day === data.format('YYYY-MM-DD')" class="eventName">{{ box.title }}</div> -->
               <div v-if="box.day === data.format('YYYY-MM-DD')" class="eventName">{{ box.title }}</div>
             </div>
           </div>
