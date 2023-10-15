@@ -11,6 +11,10 @@ const yearIndex = ref<number>(dayjs().year());
 const selectTime = useSelectTime();
 const currentMonth = ref(ArrayDay());
 
+watch([monthIndex], () => {
+  currentMonth.value = ArrayDay(yearIndex.value, monthIndex.value);
+});
+
 const pastMonth = () => {
   monthIndex.value = monthIndex.value - 1;
   if (monthIndex.value < 1) {
@@ -32,15 +36,12 @@ const presentMonth = () => {
   monthIndex.value = dayjs().month() + 1;
 };
 
-watch([monthIndex], () => {
-  currentMonth.value = ArrayDay(yearIndex.value, monthIndex.value);
-});
-
 const nowDay = (day: dayjs.Dayjs) => {
   const format = 'YY-MM-DD';
   const todayData = dayjs().format(format);
   const currDay = day.format(format);
   const selectDay = selectTime.selectTime && selectTime.selectTime.format(format);
+
   if (todayData === currDay) {
     return 'font-size: 0.75rem; line-height: 1rem; background-color: rgb(59 130 246); border-radius: 9999px; color: rgb(255 255 255);';
   } else if (currDay === selectDay) {
