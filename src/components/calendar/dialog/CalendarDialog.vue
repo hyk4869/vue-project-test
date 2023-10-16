@@ -15,7 +15,7 @@ const setColor = (value: string) => {
   colorPick.value = value;
 };
 
-const addNewTask = () => {
+const saveTask = () => {
   if (editNewTask.value !== '') {
     const Id = uuidv4();
     isShow.contentArray.push({
@@ -33,12 +33,6 @@ const addNewTask = () => {
     window.alert('タイトルは必須です');
   }
 };
-
-// const isDuplicateId = isShow.contentArray.some((event) => event.id === Id);
-// if (isDuplicateId) {
-//   window.alert('IDが重複しています');
-//   return;
-// }
 </script>
 
 <template>
@@ -76,7 +70,7 @@ const addNewTask = () => {
         </q-card-actions>
 
         <q-card-actions class="dialogBtn1">
-          <q-btn label="保存" color="primary" @click="addNewTask" class="dialogBtn" />
+          <q-btn label="保存" color="primary" @click="saveTask" class="dialogBtn" />
         </q-card-actions>
       </div>
     </q-card>

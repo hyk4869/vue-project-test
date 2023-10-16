@@ -17,11 +17,48 @@ export const useShowEvent = defineStore('showevent', () => {
 
   const contentArray = reactive<Array<contentArray>>([]);
 
-  const showDialog = () => {
+  const colorList: string[] = ['#BAF1F1', '#F1BAF1', '#BAF1D6', '#F1F1BA', '#BABAF1'];
+
+  const editNewTask = ref<string>('');
+  const editExplanation = ref<string>('');
+  const colorPick = ref<string>('');
+
+  const showDialog = (id?: string) => {
+    const isSameEvent = contentArray.find((a) => a.id === id);
+
+    if (isSameEvent) {
+      editNewTask.value = isSameEvent.title;
+      editExplanation.value = isSameEvent.explanation;
+      colorPick.value = isSameEvent.color;
+
+      saveTask(isSameEvent.id);
+    }
+
     isShowEvent.value = !isShowEvent.value;
   };
-  const colorList: string[] = ['#BAF1F1', '#F1BAF1', '#BAF1D6', '#F1F1BA', '#BABAF1'];
-  return { isShowEvent, showDialog, contentArray, colorList };
+
+  const saveTask = (id?: string) => {
+    if (editNewTask.value !== '') {
+      contentArray.map((d) => {
+        if (d.id === id) {
+          return {
+            ...d,
+            title: editNewTask.value,
+            explanation: editExplanation.value,
+            day: useSelectTime().selectTime.format('YYYY-MM-DD'),
+            color: colorPick.value,
+          };
+        }
+      });
+      showDialog();
+      editNewTask.value = '';
+      editExplanation.value = '';
+    } else {
+      window.alert('タイトルは必須です');
+    }
+  };
+
+  return { isShowEvent, showDialog, contentArray, colorList, editNewTask, editExplanation, colorPick, saveTask };
 });
 
 /**カレンダーのヘッダー部分の処理 */
