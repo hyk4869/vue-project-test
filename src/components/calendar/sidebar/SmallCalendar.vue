@@ -2,13 +2,13 @@
 import dayjs from 'dayjs';
 import { ref, watch } from 'vue';
 import { ArrayDay } from '../common_content/ArrayDay';
-import { useSelectTime } from '../calendar_stores/stores';
+import { useDisplayTime } from '../calendar_stores/stores';
 
 //headerの矢印とは独立させる形
 const monthIndex = ref<number>(dayjs().month() + 1);
 const yearIndex = ref<number>(dayjs().year());
 
-const selectTime = useSelectTime();
+const displayTime = useDisplayTime();
 const currentMonth = ref(ArrayDay());
 
 watch([monthIndex], () => {
@@ -40,7 +40,7 @@ const nowDay = (day: dayjs.Dayjs) => {
   const format = 'YY-MM-DD';
   const todayData = dayjs().format(format);
   const currDay = day.format(format);
-  const selectDay = selectTime.selectTime && selectTime.selectTime.format(format);
+  const selectDay = displayTime.displayTime && displayTime.displayTime.format(format);
 
   if (todayData === currDay) {
     return 'font-size: 0.75rem; line-height: 1rem; background-color: rgb(59 130 246); border-radius: 9999px; color: rgb(255 255 255);';
@@ -70,7 +70,7 @@ const nowDay = (day: dayjs.Dayjs) => {
       <div class="grid-container">
         <div v-for="(value, idx) in currentMonth" :key="idx" class="grid-row">
           <div v-for="(day, index) in value" :key="index" class="grid-item">
-            <button class="day" :style="nowDay(day)" @click="selectTime.selectTime = day">
+            <button class="day" :style="nowDay(day)" @click="displayTime.displayTime = day">
               <span class="spanDay">
                 {{ day.format('D') }}
               </span>

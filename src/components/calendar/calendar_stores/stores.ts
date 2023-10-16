@@ -53,8 +53,16 @@ export const useDisplayMonth = defineStore('caledar', () => {
   return { yearIndex, monthIndex, pastMonth, nextMonth, presentMonth };
 });
 
-/**smallCalendarでどの日付を選択したのか & ダイアログ内の日付 */
+/**mainCalendarでどの日付を選択したのか & ダイアログ内の日付 */
 export const useSelectTime = defineStore('selectTime', () => {
   const selectTime = ref(dayjs());
   return { selectTime };
 });
+
+/**smallCalendarでどの日付を選択したのか & ダイアログ内の日付 */
+export const useDisplayTime = defineStore('selectTime', () => {
+  const displayTime = ref(dayjs());
+  return { displayTime };
+});
+
+// day: useSelectTime().selectTime.format('YYYY-MM-DD'),

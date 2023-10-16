@@ -43,15 +43,17 @@ watch(isShow.contentArray, () => {
   <div class="calendar-container">
     <div class="calendar">
       <div v-for="(value, idx) in currentMonth" :key="idx" class="day-grid">
-        <div v-for="(data, index) in value" :key="index" class="inner-day" @click="isShow.showDialog">
+        <div v-for="(data, index) in value" :key="index" class="inner-day" @click="selectTime.selectTime = data">
           <div class="day-wrapper">
             <p v-if="idx === 0" class="day-name">{{ data.format('dd') }}</p>
             <p class="day-full" :style="nowDay(data)">{{ data.format('DD') }}</p>
           </div>
           <div class="event">
-            <div v-for="(box, number) in dayBox" :key="number" class="eventBox" @click="isShow.showDialog">
+            <div v-for="(box, number) in dayBox" :key="number" class="eventBox">
               <!-- <div v-if="box.day === data.format('YYYY-MM-DD')" class="eventName">{{ box.title }}</div> -->
-              <div v-if="box.day === data.format('YYYY-MM-DD')" class="eventName">{{ box.title }}</div>
+              <div v-if="box.day === data.format('YYYY-MM-DD')" class="eventName" @click="isShow.showDialog">
+                {{ box.title }}
+              </div>
             </div>
           </div>
         </div>
