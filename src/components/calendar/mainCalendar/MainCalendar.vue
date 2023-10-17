@@ -31,7 +31,7 @@ watch(isShow.contentArray, () => {
   const events = isShow.contentArray.filter(
     (evt) => dayjs(evt.day).format('YYYY-MM-DD') === selectTime.selectTime.format('YYYY-MM-DD')
   );
-  /**dayBox.value から重複を排除した新しい配列を作成 */
+  /**dayBox.value から重複したIDを排除して新しい配列を作成 */
   const uniqueEvents = [...dayBox.value, ...events].filter(
     (value, index, self) => self.findIndex((v) => v.id === value.id) === index
   );
@@ -53,7 +53,12 @@ watch(isShow.contentArray, () => {
           <div class="event">
             <div v-for="(box, number) in dayBox" :key="number" class="eventBox">
               <!-- <div v-if="box.day === data.format('YYYY-MM-DD')" class="eventName">{{ box.title }}</div> -->
-              <div v-if="box.day === data.format('YYYY-MM-DD')" class="eventName" @click="isShow.showDialog(box.id)">
+              <div
+                v-if="box.day === data.format('YYYY-MM-DD')"
+                class="eventName"
+                :style="{ background: box.color }"
+                @click="isShow.showDialog(box.id)"
+              >
                 {{ box.title }}
               </div>
             </div>
@@ -107,8 +112,8 @@ watch(isShow.contentArray, () => {
 }
 .eventName {
   padding: 0.25rem;
-  margin-right: 0.75rem;
-  color: rgb(160, 160, 160);
+  margin: 0 0.1rem;
+  color: rgb(127, 127, 127);
   font-size: 0.875rem;
   line-height: 1.25rem;
   border-radius: 0.25rem;

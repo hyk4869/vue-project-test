@@ -29,6 +29,7 @@ const saveTask = () => {
     isShow.showDialog();
     editNewTask.value = '';
     editExplanation.value = '';
+    colorPick.value = '';
   } else {
     window.alert('タイトルは必須です');
   }
@@ -61,7 +62,9 @@ const saveTask = () => {
         <q-card-actions class="color">
           <q-icon name="bookmark" class="bookmarkIcon" />
           <div v-for="(value, idx) in isShow.colorList" class="colorMap">
-            <div :style="{ backgroundColor: value }" class="pickColor" @click="setColor(value)"></div>
+            <div :style="{ backgroundColor: value }" class="pickColor" @click="setColor(value)">
+              <q-icon name="mdi-check" v-if="colorPick === value" class="checkedColor"></q-icon>
+            </div>
           </div>
         </q-card-actions>
 
@@ -146,6 +149,15 @@ const saveTask = () => {
   width: 2rem;
   height: 2rem;
   margin-left: 2rem;
+}
+.checkedColor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  opacity: 0.6;
+  width: 2rem;
+  height: 2rem;
 }
 .dialogBtn1 {
   position: absolute;
