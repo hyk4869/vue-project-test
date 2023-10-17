@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useShowEvent } from '../calendar_stores/stores';
+import { useAddNewEvent } from '../calendar_stores/stores';
 import CaledarDialog from '../dialog/CalendarDialog.vue';
 
-const isShow = useShowEvent();
+const isShow = useAddNewEvent();
 </script>
 
 <template>

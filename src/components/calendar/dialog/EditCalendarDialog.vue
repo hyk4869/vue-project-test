@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useSelectTime, useAddNewEvent } from '../calendar_stores/stores';
+import { useSelectTime, useEditEvent } from '../calendar_stores/stores';
 import ja from 'dayjs/locale/ja';
 import { v4 as uuidv4 } from 'uuid';
 
-const isShow = useAddNewEvent();
+const isShow = useEditEvent();
 const selectTime = useSelectTime();
 
 const editNewTask = ref<string>('');
@@ -65,6 +65,10 @@ const saveTask = () => {
           </div>
         </q-card-actions>
 
+        <q-card-actions class="delete">
+          <q-icon name="mdi-delete" class="deleteIcon" />
+        </q-card-actions>
+
         <q-card-actions class="dialogBtn1">
           <q-btn label="保存" color="primary" @click="saveTask" class="dialogBtn" />
         </q-card-actions>
@@ -75,7 +79,7 @@ const saveTask = () => {
 
 <style scoped>
 .calendarHeader {
-  background-color: rgb(225, 224, 224);
+  background-color: rgb(255, 101, 101);
 }
 .closeBtn {
   position: absolute;
@@ -87,7 +91,7 @@ const saveTask = () => {
   width: 30rem;
   min-height: 33rem;
   position: relative;
-  background-color: rgb(237, 237, 237);
+  background-color: rgb(255, 107, 107);
 }
 .insideContent {
   padding-left: 1rem;
@@ -146,6 +150,15 @@ const saveTask = () => {
   width: 2rem;
   height: 2rem;
   margin-left: 2rem;
+}
+.delete {
+  position: absolute;
+  bottom: 1rem;
+  right: 11rem;
+}
+.deleteIcon {
+  font-size: 2.3rem;
+  cursor: pointer;
 }
 .dialogBtn1 {
   position: absolute;

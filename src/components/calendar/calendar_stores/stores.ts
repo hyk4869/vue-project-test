@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import dayjs from 'dayjs';
 import { reactive, ref, type Ref } from 'vue';
+import { v4 as uuidv4 } from 'uuid';
 
 export type contentArray = {
   title: string;
@@ -11,17 +12,35 @@ export type contentArray = {
   color: string;
 };
 
-/**メイン処理　予定などを管理する */
-export const useShowEvent = defineStore('showevent', () => {
+/**メイン処理　予定など新しく追加する */
+export const useAddNewEvent = defineStore('showevent', () => {
   const isShowEvent = ref<boolean>(false);
 
   const contentArray = reactive<Array<contentArray>>([]);
 
   const colorList: string[] = ['#BAF1F1', '#F1BAF1', '#BAF1D6', '#F1F1BA', '#BABAF1'];
 
+  const showDialog = (id?: string) => {
+    isShowEvent.value = !isShowEvent.value;
+  };
+
+  return { isShowEvent, showDialog, contentArray, colorList };
+});
+
+/**メイン処理　編集用 */
+export const useEditEvent = defineStore('showevent', () => {
+  const isShowEvent = ref<boolean>(false);
+
+  const contentArray = useAddNewEvent().contentArray;
+
+  const colorList = useAddNewEvent().colorList;
+
   const editNewTask = ref<string>('');
   const editExplanation = ref<string>('');
   const colorPick = ref<string>('');
+  const idValue = ref<string>('');
+  const contentLength = ref<number>();
+  const day = ref<string>('');
 
   const showDialog = (id?: string) => {
     const isSameEvent = contentArray.find((a) => a.id === id);
@@ -30,35 +49,16 @@ export const useShowEvent = defineStore('showevent', () => {
       editNewTask.value = isSameEvent.title;
       editExplanation.value = isSameEvent.explanation;
       colorPick.value = isSameEvent.color;
-
-      saveTask(isSameEvent.id);
+      idValue.value = isSameEvent.id;
+      contentLength.value = isSameEvent.contentLength;
+      day.value = isSameEvent.day;
+      // saveTask(isSameEvent.id);
     }
 
     isShowEvent.value = !isShowEvent.value;
   };
 
-  const saveTask = (id?: string) => {
-    if (editNewTask.value !== '') {
-      contentArray.map((d) => {
-        if (d.id === id) {
-          return {
-            ...d,
-            title: editNewTask.value,
-            explanation: editExplanation.value,
-            day: useSelectTime().selectTime.format('YYYY-MM-DD'),
-            color: colorPick.value,
-          };
-        }
-      });
-      showDialog();
-      editNewTask.value = '';
-      editExplanation.value = '';
-    } else {
-      window.alert('タイトルは必須です');
-    }
-  };
-
-  return { isShowEvent, showDialog, contentArray, colorList, editNewTask, editExplanation, colorPick, saveTask };
+  return { isShowEvent, showDialog, contentArray, colorList, editNewTask, editExplanation, colorPick };
 });
 
 /**カレンダーのヘッダー部分の処理 */
