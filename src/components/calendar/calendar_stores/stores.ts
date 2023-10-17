@@ -27,40 +27,6 @@ export const useAddNewEvent = defineStore('showevent', () => {
   return { isShowEvent, showDialog, contentArray, colorList };
 });
 
-/**メイン処理　編集用 */
-export const useEditEvent = defineStore('showevent', () => {
-  const isShowEvent = ref<boolean>(false);
-
-  const contentArray = useAddNewEvent().contentArray;
-
-  const colorList = useAddNewEvent().colorList;
-
-  const editNewTask = ref<string>('');
-  const editExplanation = ref<string>('');
-  const colorPick = ref<string>('');
-  const idValue = ref<string>('');
-  const contentLength = ref<number>();
-  const day = ref<string>('');
-
-  const showDialog = (id?: string) => {
-    const isSameEvent = contentArray.find((a) => a.id === id);
-
-    if (isSameEvent) {
-      editNewTask.value = isSameEvent.title;
-      editExplanation.value = isSameEvent.explanation;
-      colorPick.value = isSameEvent.color;
-      idValue.value = isSameEvent.id;
-      contentLength.value = isSameEvent.contentLength;
-      day.value = isSameEvent.day;
-      // saveTask(isSameEvent.id);
-    }
-
-    isShowEvent.value = !isShowEvent.value;
-  };
-
-  return { isShowEvent, showDialog, contentArray, colorList, editNewTask, editExplanation, colorPick };
-});
-
 /**カレンダーのヘッダー部分の処理 */
 export const useDisplayMonth = defineStore('caledar', () => {
   const monthIndex: Ref<number> = ref(dayjs().month() + 1);
@@ -97,7 +63,7 @@ export const useSelectTime = defineStore('selectTime', () => {
 });
 
 /**smallCalendarでどの日付を選択したのか & ダイアログ内の日付 */
-export const useDisplayTime = defineStore('selectTime', () => {
+export const useDisplayTime = defineStore('displayTime', () => {
   const displayTime = ref(dayjs());
   return { displayTime };
 });

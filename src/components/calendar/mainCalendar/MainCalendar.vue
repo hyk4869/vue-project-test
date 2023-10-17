@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue';
 import { ArrayDay } from '../common_content/ArrayDay';
 import dayjs from 'dayjs';
-import { useAddNewEvent, type contentArray, useSelectTime, useEditEvent } from '../calendar_stores/stores';
+import { useAddNewEvent, type contentArray, useSelectTime } from '../calendar_stores/stores';
 
 const currentMonth = ref(ArrayDay());
 const yearIndex = ref<number>(dayjs().year());
@@ -11,7 +11,6 @@ const dayBox = ref<contentArray[]>([]);
 
 const isShow = useAddNewEvent();
 const selectTime = useSelectTime();
-const editEvent = useEditEvent();
 
 watch([monthIndex], () => {
   currentMonth.value = ArrayDay(yearIndex.value, monthIndex.value);
@@ -38,6 +37,7 @@ watch(isShow.contentArray, () => {
   );
 
   dayBox.value = uniqueEvents;
+  console.log(isShow);
 });
 </script>
 
@@ -53,7 +53,7 @@ watch(isShow.contentArray, () => {
           <div class="event">
             <div v-for="(box, number) in dayBox" :key="number" class="eventBox">
               <!-- <div v-if="box.day === data.format('YYYY-MM-DD')" class="eventName">{{ box.title }}</div> -->
-              <div v-if="box.day === data.format('YYYY-MM-DD')" class="eventName" @click="editEvent.showDialog(box.id)">
+              <div v-if="box.day === data.format('YYYY-MM-DD')" class="eventName" @click="isShow.showDialog(box.id)">
                 {{ box.title }}
               </div>
             </div>
