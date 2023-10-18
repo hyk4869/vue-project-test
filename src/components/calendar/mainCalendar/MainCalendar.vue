@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue';
 import { ArrayDay } from '../common_content/ArrayDay';
 import dayjs from 'dayjs';
-import { useAddNewEvent, type contentArray, useSelectTime } from '../calendar_stores/stores';
+import { useAddNewEvent, type contentArray, useSelectTime, findIdFromArray } from '../calendar_stores/stores';
 
 const currentMonth = ref(ArrayDay());
 const yearIndex = ref<number>(dayjs().year());
@@ -11,6 +11,7 @@ const dayBox = ref<contentArray[]>([]);
 
 const isShow = useAddNewEvent();
 const selectTime = useSelectTime();
+const findArray = findIdFromArray();
 
 watch([monthIndex], () => {
   currentMonth.value = ArrayDay(yearIndex.value, monthIndex.value);
@@ -27,37 +28,35 @@ const nowDay = (day: dayjs.Dayjs) => {
   }
 };
 
-watch(isShow.contentArray, () => {
-  const events = isShow.contentArray.filter(
-    (evt) => dayjs(evt.day).format('YYYY-MM-DD') === selectTime.selectTime.format('YYYY-MM-DD')
-  );
-  /**dayBox.value から重複したIDを排除して新しい配列を作成 */
-  const uniqueEvents = [...dayBox.value, ...events].filter(
-    (value, index, self) => self.findIndex((v) => v.id === value.id) === index
-  );
+// watch(isShow.contentArray, () => {
+//   const events = isShow.contentArray.filter(
+//     (evt) => dayjs(evt.day).format('YYYY-MM-DD') === selectTime.selectTime.format('YYYY-MM-DD')
+//   );
+//   /**dayBox.value から重複したIDを排除して新しい配列を作成 */
+//   const uniqueEvents = [...dayBox.value, ...events].filter(
+//     (value, index, self) => self.findIndex((v) => v.id === value.id) === index
+//   );
 
-  dayBox.value = uniqueEvents;
-  console.log(isShow);
-});
+//   isShow.contentArray = uniqueEvents;
+// });
 </script>
 
 <template>
   <div class="calendar-container">
     <div class="calendar">
-      <div v-for="(value, idx) in currentMonth" :key="idx" class="day-grid">
+      <div v-for="(value, idx) in currentMonth" :key="idx" class="day-grid" @click="isShow.showDialog">
         <div v-for="(data, index) in value" :key="index" class="inner-day" @click="selectTime.selectTime = data">
           <div class="day-wrapper">
             <p v-if="idx === 0" class="day-name">{{ data.format('dd') }}</p>
             <p class="day-full" :style="nowDay(data)">{{ data.format('DD') }}</p>
           </div>
           <div class="event">
-            <div v-for="(box, number) in dayBox" :key="number" class="eventBox">
-              <!-- <div v-if="box.day === data.format('YYYY-MM-DD')" class="eventName">{{ box.title }}</div> -->
+            <div v-for="(box, number) in isShow.contentArray" :key="number" class="eventBox">
               <div
                 v-if="box.day === data.format('YYYY-MM-DD')"
                 class="eventName"
                 :style="{ background: box.color }"
-                @click="isShow.showDialog(box.id)"
+                @click="findArray.findId(box.id)"
               >
                 {{ box.title }}
               </div>

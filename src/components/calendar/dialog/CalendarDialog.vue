@@ -1,39 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useSelectTime, useAddNewEvent } from '../calendar_stores/stores';
 import ja from 'dayjs/locale/ja';
-import { v4 as uuidv4 } from 'uuid';
 
 const isShow = useAddNewEvent();
 const selectTime = useSelectTime();
-
-const editNewTask = ref<string>('');
-const editExplanation = ref<string>('');
-const colorPick = ref<string>('');
-
-const setColor = (value: string) => {
-  colorPick.value = value;
-};
-
-const saveTask = () => {
-  if (editNewTask.value !== '') {
-    const Id = uuidv4();
-    isShow.contentArray.push({
-      title: editNewTask.value,
-      explanation: editExplanation.value,
-      id: Id,
-      contentLength: isShow.contentArray.length + 1,
-      day: selectTime.selectTime.format('YYYY-MM-DD'),
-      color: colorPick.value,
-    });
-    isShow.showDialog();
-    editNewTask.value = '';
-    editExplanation.value = '';
-    colorPick.value = '';
-  } else {
-    window.alert('タイトルは必須です');
-  }
-};
 </script>
 
 <template>
@@ -46,7 +16,7 @@ const saveTask = () => {
       <div class="insideContent">
         <q-card-section class="titleSession">
           <q-icon name="mdi-pencil" class="pencil" />
-          <q-input v-model="editNewTask" placeholder="タイトルを追加" class="inputTilte" />
+          <q-input v-model="isShow.editNewTask" placeholder="タイトルを追加" class="inputTilte" />
         </q-card-section>
 
         <q-card-section class="timeSession">
@@ -56,20 +26,24 @@ const saveTask = () => {
 
         <q-card-section class="explanationSession">
           <q-icon name="mdi-menu" class="explanation" />
-          <q-input v-model="editExplanation" filled type="textarea" class="explanationArea" />
+          <q-input v-model="isShow.editExplanation" filled type="textarea" class="explanationArea" />
         </q-card-section>
 
         <q-card-actions class="color">
           <q-icon name="bookmark" class="bookmarkIcon" />
           <div v-for="(value, idx) in isShow.colorList" class="colorMap">
-            <div :style="{ backgroundColor: value }" class="pickColor" @click="setColor(value)">
-              <q-icon name="mdi-check" v-if="colorPick === value" class="checkedColor"></q-icon>
+            <div :style="{ backgroundColor: value }" class="pickColor" @click="isShow.setColor(value)">
+              <q-icon name="mdi-check" v-if="isShow.colorPick === value" class="checkedColor"></q-icon>
             </div>
           </div>
         </q-card-actions>
 
+        <q-card-actions class="delete">
+          <q-icon name="mdi-delete" class="deleteIcon" @click="isShow.deleteObj" />
+        </q-card-actions>
+
         <q-card-actions class="dialogBtn1">
-          <q-btn label="保存" color="primary" @click="saveTask" class="dialogBtn" />
+          <q-btn label="保存" color="primary" @click="isShow.saveTask" class="dialogBtn" />
         </q-card-actions>
       </div>
     </q-card>
@@ -158,6 +132,15 @@ const saveTask = () => {
   opacity: 0.6;
   width: 2rem;
   height: 2rem;
+}
+.delete {
+  position: absolute;
+  bottom: 1rem;
+  right: 11rem;
+}
+.deleteIcon {
+  font-size: 2.3rem;
+  cursor: pointer;
 }
 .dialogBtn1 {
   position: absolute;
