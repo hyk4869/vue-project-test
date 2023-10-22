@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import dayjs from 'dayjs';
 import { reactive, ref, type Ref } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
+import { ArrayDay } from '../common_content/ArrayDay';
 
 export type contentArray = {
   title: string;
@@ -106,6 +107,7 @@ export const useAddNewEvent = defineStore('showevent', () => {
 export const useDisplayMonth = defineStore('caledar', () => {
   const monthIndex: Ref<number> = ref(dayjs().month() + 1);
   const yearIndex: Ref<number> = ref(dayjs().year());
+  const currentMonth = ref(ArrayDay());
 
   const pastMonth = () => {
     monthIndex.value = monthIndex.value - 1;
@@ -128,7 +130,7 @@ export const useDisplayMonth = defineStore('caledar', () => {
     monthIndex.value = dayjs().month() + 1;
   };
 
-  return { yearIndex, monthIndex, pastMonth, nextMonth, presentMonth };
+  return { currentMonth, yearIndex, monthIndex, pastMonth, nextMonth, presentMonth };
 });
 
 /**mainCalendarでどの日付を選択したのか & ダイアログ内の日付 */

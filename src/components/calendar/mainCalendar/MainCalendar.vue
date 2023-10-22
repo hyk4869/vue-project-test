@@ -2,19 +2,27 @@
 import { ref, watch } from 'vue';
 import { ArrayDay } from '../common_content/ArrayDay';
 import dayjs from 'dayjs';
-import { useAddNewEvent, type contentArray, useSelectTime, findIdFromArray } from '../calendar_stores/stores';
+import {
+  useAddNewEvent,
+  type contentArray,
+  useSelectTime,
+  findIdFromArray,
+  useDisplayMonth,
+} from '../calendar_stores/stores';
 
-const currentMonth = ref(ArrayDay());
-const yearIndex = ref<number>(dayjs().year());
-const monthIndex = ref<number>(dayjs().month() + 1);
-const dayBox = ref<contentArray[]>([]);
+// const currentMonth = ref(ArrayDay());
+// const yearIndex = ref<number>(dayjs().year());
+// const monthIndex = ref<number>(dayjs().month() + 1);
+// const dayBox = ref<contentArray[]>([]);
 
 const isShow = useAddNewEvent();
 const selectTime = useSelectTime();
 const findArray = findIdFromArray();
+const controlCalendar = useDisplayMonth();
 
-watch([monthIndex], () => {
-  currentMonth.value = ArrayDay(yearIndex.value, monthIndex.value);
+watch([controlCalendar], () => {
+  // currentMonth.value = ArrayDay(yearIndex.value, monthIndex.value);
+  controlCalendar.currentMonth = ArrayDay(controlCalendar.yearIndex, controlCalendar.monthIndex);
 });
 
 const nowDay = (day: dayjs.Dayjs) => {
@@ -44,7 +52,7 @@ const nowDay = (day: dayjs.Dayjs) => {
 <template>
   <div class="calendar-container">
     <div class="calendar">
-      <div v-for="(value, idx) in currentMonth" :key="idx" class="day-grid" @click="isShow.showDialog">
+      <div v-for="(value, idx) in controlCalendar.currentMonth" :key="idx" class="day-grid" @click="isShow.showDialog">
         <div v-for="(data, index) in value" :key="index" class="inner-day" @click="selectTime.selectTime = data">
           <div class="day-wrapper">
             <p v-if="idx === 0" class="day-name">{{ data.format('dd') }}</p>
