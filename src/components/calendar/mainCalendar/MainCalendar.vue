@@ -2,18 +2,7 @@
 import { ref, watch } from 'vue';
 import { ArrayDay } from '../common_content/ArrayDay';
 import dayjs from 'dayjs';
-import {
-  useAddNewEvent,
-  type contentArray,
-  useSelectTime,
-  findIdFromArray,
-  useDisplayMonth,
-} from '../calendar_stores/stores';
-
-// const currentMonth = ref(ArrayDay());
-// const yearIndex = ref<number>(dayjs().year());
-// const monthIndex = ref<number>(dayjs().month() + 1);
-// const dayBox = ref<contentArray[]>([]);
+import { useAddNewEvent, useSelectTime, findIdFromArray, useDisplayMonth } from '../calendar_stores/stores';
 
 const isShow = useAddNewEvent();
 const selectTime = useSelectTime();
@@ -21,7 +10,6 @@ const findArray = findIdFromArray();
 const controlCalendar = useDisplayMonth();
 
 watch([controlCalendar], () => {
-  // currentMonth.value = ArrayDay(yearIndex.value, monthIndex.value);
   controlCalendar.currentMonth = ArrayDay(controlCalendar.yearIndex, controlCalendar.monthIndex);
 });
 
@@ -35,18 +23,6 @@ const nowDay = (day: dayjs.Dayjs) => {
     return '';
   }
 };
-
-// watch(isShow.contentArray, () => {
-//   const events = isShow.contentArray.filter(
-//     (evt) => dayjs(evt.day).format('YYYY-MM-DD') === selectTime.selectTime.format('YYYY-MM-DD')
-//   );
-//   /**dayBox.value から重複したIDを排除して新しい配列を作成 */
-//   const uniqueEvents = [...dayBox.value, ...events].filter(
-//     (value, index, self) => self.findIndex((v) => v.id === value.id) === index
-//   );
-
-//   isShow.contentArray = uniqueEvents;
-// });
 </script>
 
 <template>
